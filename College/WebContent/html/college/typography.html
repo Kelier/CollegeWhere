@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<title>用户管理</title>
+<link rel="stylesheet" type="text/css" href="../css/common.css">
+<!-- <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+
+<link rel="stylesheet" type="text/css" href="../css/slide.css">
+<link rel="stylesheet" type="text/css" href="../css/flat-ui.min.css">
+<link rel="stylesheet" type="text/css"
+	href="../css/jquery.nouislider.css">
+<script src="../js/jquery.js"></script>
+<script src="../js/bootstrap.min.js"></script> -->
+<script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+	<div role="tabpanel" class="tab-pane" id="scho">
+
+		<div class="check-div form-inline">
+			<div class="col-xs-3">
+			
+			</div>
+			<div class="col-lg-4 col-xs-5" style="width: 35%;float:right;margin-right:100px">
+				<input type="text" class=" form-control input-sm " id="query_nick"
+					placeholder="输入用户昵称"> 
+				<button class="btn btn-white btn-xs " onclick="queryUser();">查
+					询</button>
+			</div>
+			<br>
+		</div>
+
+		<div class="data-div" id="app">
+			<div class="row tableHeader">
+				<div class="col-xs-2" v-for="title in titles" style="width:150px;height:50px;overflow:hidden"
+					v-if="title.show==true">{{title.name}}</div>
+			</div>
+			<div class="tablebody">
+				<div class="row"  v-for="tr in tableTds">
+					<div class="col-xs-2" style="width:150px;height:50px;overflow:hidden">{{tr.uid}}</div>
+					<div class="col-xs-2" style="width:150px;height:50px;overflow:hidden">{{tr.nickname}}</div>
+					<div class="col-xs-2" style="width:150px;height:50px;overflow:hidden">{{tr.avatar}}</div>
+					<div class="col-xs-2" style="width:150px;height:50px;overflow:hidden">{{tr.gender}}</div>
+					<div class="col-xs-2" style="width:150px;height:50px;overflow:hidden">{{tr.subject}}</div>
+					<div class="col-xs-2" style="width:150px;height:50px;overflow:hidden">{{tr.province}}</div>
+					<div class="col-xs-2" style="width:150px;height:50px;overflow:hidden">{{tr.score}}</div>
+					<div class="col-xs-2" style="width:150px;height:50px;overflow:hidden">
+
+				
+						<button class="btn btn-danger btn-xs" data-toggle="modal"
+							:data-id="tr.uid" @click="delTd($event)">删除</button>
+					</div>
+				</div>
+
+
+			</div>
+
+			<!--弹出删除用户警告窗口-->
+			<div class="modal fade" id="deleteUser" role="dialog"
+				aria-labelledby="gridSystemModalLabel">
+				<div class="modal-dialog" role="document" style="margin-top: 15%">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">×</span>
+							</button>
+							<h4 class="modal-title" id="gridSystemModalLabel">提示</h4>
+						</div>
+						<div class="modal-body">
+							<div class="container-fluid">确定要删除该大学信息？删除后不可恢复！</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-xs btn-white"
+								data-dismiss="modal">取 消</button>
+							<button type="button" class="btn btn-xs btn-danger"
+								id="btn_delete">删 除</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+
+
+			
+
+		</div>
+
+
+
+		
+
+	</div>
+
+	<script type="text/javascript">
+	
+	var tableTitleData = [ {
+		name : "用户编号",
+		key : "uid",
+		show : true
+	}, {
+		name : "昵称",
+		key : "nickname",
+		show : true
+	}, {
+		name : "头像",
+		key : "avatar",
+		show : true
+	}, {
+		name : "性别",
+		key : "gender",
+		show : true
+	}, {
+		name : "所属科类",
+		key : "subject",
+		show : true
+	},  {
+		name : "省份",
+		key : "province",
+		show : true
+	}, {
+		name : "分数",
+		key : "score",
+		show : true
+	}];
+	var tableTd;
+	var tableApp = new Vue(
+			{
+				el : "#app",
+				data : {
+					titles : tableTitleData,//表头
+					tableTds : tableTd,//表内容
+					uid : null,//选中要操作的ruleId
+
+				},
+				methods : {
+					
+					delTd : function(ev) {
+						$('#deleteUser').modal('show');
+						var srcEl = ev.target, //获取A元素
+						id = srcEl.dataset.id;//A元素上的data-id的值
+						/*   alert(id); */
+						$("#btn_delete")
+								.click(
+										function() {
+											for (var i = 0; i < tableApp.tableTds.length; i++) {
+
+												if (tableApp.tableTds[i].uid == id) {
+
+													tableApp.tableTds
+															.splice(i, 1);
+													$
+															.ajax({
+																method : 'post',
+																url : '../DeleteUser',
+																dataType : 'json',
+																data : {
+																	uid : id
+																},
+																success : function(
+																		data) {
+																	alert(data);
+																},
+																error : function(
+																		data) {
+																	alert(JSON
+																			.stringify(data));
+																}
+															});
+													$('#deleteUser')
+															.modal('hide');
+													break;
+													//删除成功
+												}
+											}
+										});
+
+					}
+				}
+			});
+	
+	
+	
+		 $(document).ready(function() {
+
+			$.ajax({
+				method : 'post',
+				url : '../FindUser',
+				dataType : 'json',
+				success : function(data) {
+					for ( var x in data) {
+						if(data[x].gender=="0")
+							data[x].gender="男";
+						if(data[x].gender=="1")
+							data[x].gender="女";
+						if(data[x].subject=="0")
+							data[x].subject="理科";
+						if(data[x].subject=="1")
+							data[x].subject="文科";
+					}
+				
+					 tableApp.tableTds = data; 
+				},
+				error : function(data) {
+					alert(JSON.stringify(data));
+				}
+			});
+
+		});
+ 
+ 	
+		 function queryUser(){
+				var nick=$('#query_nick').val();
+			
+				
+			 $.ajax({
+					type:'get',
+					url:'../QueryUser',
+					data:{
+						nickname:nick						
+					},
+					dataType:'json',
+					success:function(data){
+						alert(JSON.stringify(data));
+						tableApp.tableTds = data;
+					},
+					error:function(data){
+						alert(JSON.stringify(data)+"连接失败");
+					}
+					
+				}) ;
+		 }
+		
+
+	</script>
+</body>
+</html>

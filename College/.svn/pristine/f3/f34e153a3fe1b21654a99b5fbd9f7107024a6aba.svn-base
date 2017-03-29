@@ -1,0 +1,67 @@
+html ,body, input, select, textarea {
+    margin: 0;
+    padding: 0;
+    line-height: 24px;
+    font: 14px Helvetica Neue,Helvetica,PingFang SC,\5FAE\8F6F\96C5\9ED1,Tahoma,Arial,sans-serif;
+}
+
+
+body, button, dd, div, dl, dt, form, h1, h2, h3, h4, h5, h6, hr, input, li, ol, p, td, textarea, th, ul {
+    margin: 0;
+    padding: 0;
+}
+img {
+    border: 0;
+}
+
+table > thead > tr > th, table > tbody > tr > td {
+    /*height: 30px;
+    line-height: 30px;*/
+}
+
+.table-responsive tbody tr{
+    cursor:pointer;
+}
+
+a{
+    cursor:pointer;
+}
+
+button {
+    cursor:pointer;
+}
+em{font-style:normal;}
+
+ul {
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0px;
+}
+
+.pull-right {
+    float: right !important;
+}
+
+.pull-left {
+    float: left !important;
+}
+
+.layui-btn {
+    padding: 0 10px !important;
+}
+
+.layui-table {
+    min-width: 500px !important;
+}
+
+.layui-laypage {
+    margin: 0 !important;
+}
+
+.layui-table tbody tr:hover {
+    cursor: pointer !important;
+}

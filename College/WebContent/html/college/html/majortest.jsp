@@ -1,0 +1,1050 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>霍兰德SDS职业兴趣测试（适合高中生、大一大二学生）</title>
+<style type="text/css">
+</style>
+<link rel="stylesheet" href="../css/test/button.css">
+<style>
+body{
+background:url(../images/backcover.jpg)  fixed left;
+
+}
+.style1 {
+	font-size: 11pt;
+	line-height: 1.8;
+}
+
+p {
+	text-indent: 2em
+}
+</style>
+
+
+<script src="//hm.baidu.com/hm.js?f4a3486651139f899f3fd9c74bf3ae6b"></script>
+<script language="JavaScript">
+	
+
+	function form_check() {
+
+		var a = document.getElementsByTagName("INPUT");
+		var b = document.getElementsByTagName("STRONG");
+
+		for (var i = 0; i < a.length; i++) {
+			var tmpStr;
+			j = i / 2
+			tmpStr = a[i].name;
+			strongid = b[j - 1];
+			tmpjuanbiao = tmpStr + "juanbiao"
+			if (a[i].type == "radio"
+					&& eval("document.form1." + tmpStr + "[0].checked") == false
+					&& eval("document.form1." + tmpStr + "[1].checked") == false) {
+				alert("问题'" + tmpStr + "'没有选择");
+				linkTo(tmpjuanbiao)
+				//strongid.style.color="#ff0000"
+				return false;
+			}
+		}
+
+	}
+
+	function shifouzhidao() {
+		if (document.form1.checkbox.checked == false) {
+			alert(' ');
+			var x = document.getElementsByName("answer1"); //获取所有name=brand的元素
+			for (var i = 0; i < x.length; i++) { //对所有结果进行遍历，如果状态是被选中的，则将其选择取消
+				if (x[i].checked == true) {
+					x[i].checked = false;
+				}
+			}
+			linkTo("checkboxjuanbiao");
+			return false;
+		}
+
+	}
+</script>
+
+<script type="text/javascript">
+	function showResult() {	
+	form_check();
+	var c_result = 0;
+	var r_result = 0;
+	var i_result = 0;
+	var e_result = 0;
+	var s_result = 0;
+	var a_result = 0;
+	var perScore = 10;
+	var userAnswer = [];
+	//传统型
+	var CAnswer = [ null,null,null,null,null,null,0,null,null,null
+		,null,null,null,null,null,null,null,1,0,null
+		,null,null,null,null,null,null,null,null,0,null
+		,null,null,null,null,null,null,null,null,0,1,
+		0,null,null,null,null,null,null,null,null,null
+		,0,null,null,null,null,null,0,null,null,null];
+	//现实型
+	var RAnswer = [ null,0,null,null,null,null,null,null,null,null
+		,null,null,0,null,1,null,null,null,null,null
+		,null,0,1,null,null,null,null,null,null,null
+		,null,null,null,1,1,null,1,1,null,null
+		,null,null,0,null,null,null,null,null,null,null
+		,null,null,null,null,null,null,null,null,null,null];
+	//研究型
+	var IAnswer = [ null,null,null,null,null,0,null,0,null,null
+		,null,null,null,null,null,null,null,null,null,0
+		,1,null,null,null,null,null,null,null,null,0
+		,0,null,null,null,null,null,null,null,null,null
+		,null,0,null,null,null,null,null,null,null,null
+		,null,null,null,null,1,1,null,1,null,null];
+	//管理型
+	var EAnswer = [ null,null,1,null,null,null,null,null,null,null
+		,0,null,null,null,null,1,null,null,null,null
+		,null,null,null,0,null,1,null,0,null,null
+		,null,null,null,null,0,null,null,0,null,null
+		,null,null,null,null,null,0,null,null,null,null
+		,null,null,null,null,null,null,null,null,null,0];
+	//社会型
+	var SAnswer = [ 1,null,null,null,null,null,null,null,null,null
+		,null,1,null,null,1,null,null,null,null,null
+		,null,null,null,null,null,0,1,null,null,null
+		,null,null,null,null,null,null,0,null,null,null
+		,null,null,null,null,1,null,null,null,null,null
+		,null,0,1,null,null,null,null,null,0,null];
+	//艺术型
+	var AAnswer = [ null,null,null,0,null,null,null,null,0,0
+		,null,null,null,null,null,null,0,null,null,null
+		,null,null,1,null,null,null,null,null,null,null
+		,null,null,0,0,null,null,null,null,null,null
+		,null,null,null,null,null,null,null,null,0,0
+		,null,null,null,0,null,null,null,null,null,null];
+	function getUserAnswer(radioGroupName) {
+		var rg = document.getElementsByName(radioGroupName);
+		for (var i = 0; i < rg.length; i++) {
+			if (rg[i].checked == true)
+				userAnswer.push(i);
+		}
+	}
+	getUserAnswer("answer1");
+	getUserAnswer("answer2");
+	getUserAnswer("answer3");
+	getUserAnswer("answer4");
+	getUserAnswer("answer5");
+	getUserAnswer("answer6");
+	getUserAnswer("answer7");
+	getUserAnswer("answer8");
+	getUserAnswer("answer9");
+	getUserAnswer("answer10");
+	getUserAnswer("answer11");
+	getUserAnswer("answer12");
+	getUserAnswer("answer13");
+	getUserAnswer("answer14");
+	getUserAnswer("answer15");
+	getUserAnswer("answer16");
+	getUserAnswer("answer17");
+	getUserAnswer("answer18");
+	getUserAnswer("answer19");
+	getUserAnswer("answer20");
+	getUserAnswer("answer21");
+	getUserAnswer("answer22");
+	getUserAnswer("answer23");
+	getUserAnswer("answer24");
+	getUserAnswer("answer26");
+	getUserAnswer("answer27");
+	getUserAnswer("answer28");
+	getUserAnswer("answer29");
+	getUserAnswer("answer30");
+	getUserAnswer("answer31");
+	getUserAnswer("answer32");
+	getUserAnswer("answer33");
+	getUserAnswer("answer34");
+	getUserAnswer("answer35");
+	getUserAnswer("answer36");
+	getUserAnswer("answer37");
+	getUserAnswer("answer38");
+	getUserAnswer("answer39");
+	getUserAnswer("answer40");
+	getUserAnswer("answer41");
+	getUserAnswer("answer42");
+	getUserAnswer("answer43");
+	getUserAnswer("answer44");
+	getUserAnswer("answer45");
+	getUserAnswer("answer46");
+	getUserAnswer("answer47");
+	getUserAnswer("answer48");
+	getUserAnswer("answer49");
+	getUserAnswer("answer50");
+	getUserAnswer("answer51");
+	getUserAnswer("answer52");
+	getUserAnswer("answer53");
+	getUserAnswer("answer54");
+	getUserAnswer("answer55");
+	getUserAnswer("answer56");
+	getUserAnswer("answer57");
+	getUserAnswer("answer58");
+	getUserAnswer("answer59");
+	getUserAnswer("answer60");
+	
+	//在这里，再调用getUserAnswer()59次，每次传入相应的RadioGroup名即可,下一个应该是answer2
+	if (userAnswer) {
+		for (var i = 0; i < userAnswer.length; i++) {
+			if (userAnswer[i] == CAnswer[i])
+				c_result += perScore;
+		}
+	}
+	if (userAnswer) {
+		for (var i = 0; i < userAnswer.length; i++) {
+			if (userAnswer[i] == RAnswer[i])
+				r_result += perScore;
+		}
+	}
+	if (userAnswer) {
+		for (var i = 0; i < userAnswer.length; i++) {
+			if (userAnswer[i] == IAnswer[i])
+				i_result += perScore;
+		}
+	}
+	if (userAnswer) {
+		for (var i = 0; i < userAnswer.length; i++) {
+			if (userAnswer[i] == EAnswer[i])
+				e_result += perScore;
+		}
+	}
+	if (userAnswer) {
+		for (var i = 0; i < userAnswer.length; i++) {
+			if (userAnswer[i] == SAnswer[i])
+				s_result += perScore;
+		}
+	}
+	if (userAnswer) {
+		for (var i = 0; i < userAnswer.length; i++) {
+			if (userAnswer[i] == AAnswer[i])
+				a_result += perScore;
+		}
+	}
+	
+	window.location.href="majortestResult.jsp?c_result="+c_result+"&r_result="+r_result+"&i_result="+i_result+"&e_result="+e_result+"&s_result="+s_result+"&a_result="+a_result;
+	/*	alert("常规型职业人格分数为：" + c_result + 
+				"，现实型职业人格分数为：" + r_result +
+				"，研究型职业人格分数为：" + i_result + 
+				"，管理型职业人格分数为：" + e_result + 
+				"，社会型职业人格分数为：" + s_result + 
+				"，艺术型职业人格分数为：" + a_result );*/
+	}
+</script>
+
+</head>
+</head>
+<body>
+<body>
+
+
+
+
+	<table
+		style="width: 771px; margin: 5px 0px 15px 5px; margin-left: auto; margin-right: auto"
+		align="center">
+		<tbody>
+			<tr>
+				<td>
+
+
+					<div class="style123w" style="width: 771px; border-top: 0px;">
+
+						<br>
+						<h2 align="center">霍兰德SDS职业兴趣测试</h2>
+						<br> <br>
+
+
+						<div style="padding: 10px;">
+
+							<table style="FLOAT: left; MARGIN: 20px 25px 10px 0px"
+								width="300" bgcolor="#dddddd" cellpadding="0" cellspacing="5">
+								<tbody>
+									<tr>
+										<td><img align="center" width="300" alt=""
+											style="border: 0px solid #333333;" src="../images/aaa.jpg">
+										</td>
+									</tr>
+									<tr>
+										<td
+											style="FONT-SIZE: 9pt; LINE-HEIGHT: 12pt; FONT-FAMILY: Arial, 宋体; font-weight: none; color: #2F4F4F">霍兰德六边形图实例
+										</td>
+									</tr>
+								</tbody>
+							</table>
+
+
+							<p>霍兰德职业适应性测验(The Self-Directed Search，简称SDS)由美国著名职业指导专家
+								Ｊ.霍兰德（ＨＯＬＬＡＮＤ）编制。在几十年间经过一百多次大规模的实验研究，形成了人格类型与职业类型的学说和测验。
+								该测验能帮助被试者发现和确定自己的职业兴趣和能力专长, 从而科学地做出求职择业。</p>
+							<p>霍兰德在其一系列关于人格与职业关系的假设的基础上，提出了六种基本的职业类型，即：实际型、研究型、艺术型、社会型、企业型、传统型。</p>
+
+							<p>霍兰德职业兴趣SDS测试一般是适合于高中生，通过此测试可以让高中生确定自己的兴趣爱好，给大学的专业选择提供参考。目前我们国内的很多高中已经在实施霍兰德职业兴趣测试了，这是好的开始。如果你是大学生大一、大二的话也可以测一下，及时进行调整。
+							</p>
+
+							<br>
+							<hr>
+							<p>
+								<b>指导语：</b>
+							</p>
+							<p>人格和职业有着密切的关系，不同职业对从业者的人格特征的要求是有差距的，如果通过科学的测试，可以预知自己的人格特征，这有助于选择适合于个人发展的职业，您将参与测试的这个《职业兴趣倾向量表》，可以帮助您作一次简单的人格自评，从而更加清楚自己的人格特征更适合从事哪方面的工作。</p>
+
+							<p>请根据对每一题目的第一印象作答，不必仔细推敲，答案没有好坏、对错之分。根据自己的实际情况回答“是”或“否”。</p>
+							<form id="form1" name="form1" action="" method="post">
+								<br>
+								<hr>
+								<span class="style1">
+									<table width="95%" border="0" cellpadding="0" cellspacing="0"
+										align="center">
+										<!--DWLayoutTable-->
+
+										<tbody>
+											<tr>
+												<td><a name="answer1juanbiao"></a><br> <span
+													class="style1"> <strong>1.我喜欢把一件事情做完后再做另一件事。</strong>
+														<br> <br> <label class="green button" for="11"><input
+															type="radio" name="answer1" value="0|" id="11"
+															onclick="shifouzhidao();">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="12" class="green button"><input
+															type="radio" name="answer1" value="1|s" id="12"
+															onclick="shifouzhidao();">B.否</label> <br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer2juanbiao"></a><br> <span
+													class="style1"> <strong>2.在学习和生活中我喜欢独自筹划，不愿受别人干涉。</strong>
+														<br> <br> <label class="green button" for="21"><input
+															type="radio" name="answer2" value="0|r" id="21">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="22" class="green button"><input
+															type="radio" name="answer2" value="1|" id="22">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer3juanbiao"></a><br> <span
+													class="style1"> <strong>3.在集体讨论中，我往往保持沉默。</strong> <br>
+														<br> <label class="green button" for="31"><input
+															type="radio" name="answer3" value="0|" id="31">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="32" class="green button"><input
+															type="radio" name="answer3" value="1|e" id="32">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer4juanbiao"></a><br> <span
+													class="style1"> <strong>4.我喜欢做戏剧、音乐、歌舞、新闻采访等方面的工作。</strong>
+														<br> <br> <label class="green button" for="41"><input
+															type="radio" name="answer4" value="0|a" id="41">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="42" class="green button"><input
+															type="radio" name="answer4" value="1|" id="42">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer5juanbiao"></a><br> <span
+													class="style1"> <strong>5.每次写信我都一挥而就，不再重复。</strong>
+														<br> <br> <label class="green button" for="51"><input
+															type="radio" name="answer5" value="0|" id="51">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="52" class="green button"><input
+															type="radio" name="answer5" value="1|c" id="52">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer6juanbiao"></a><br> <span
+													class="style1"> <strong>6.我经常不停地思考某一问题，直到想出正确的答案。</strong>
+														<br> <br> <label class="green button" for="61"><input
+															type="radio" name="answer6" value="0|i" id="61">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="62" class="green button"><input
+															type="radio" name="answer6" value="1|" id="62">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer7juanbiao"></a><br> <span
+													class="style1"> <strong>7.对别人借我的和我借别人的东西，我都能记得很清楚。</strong>
+														<br> <br> <label class="green button" for="71"><input
+															type="radio" name="answer7" value="0|c" id="71">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="72" class="green button"><input
+															type="radio" name="answer7" value="1|" id="72">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer8juanbiao"></a><br> <span
+													class="style1"> <strong>8.我喜欢抽象思维的工作，不喜欢动手的工作。</strong>
+														<br> <br> <label class="green button" for="81"><input
+															type="radio" name="answer8" value="0|i" id="81">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="82" class="green button"><input
+															type="radio" name="answer8" value="1|" id="82">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer9juanbiao"></a><br> <span
+													class="style1"> <strong>9.我喜欢成为人们注意的焦点。</strong> <br>
+														<br> <label class="green button" for="91"><input
+															type="radio" name="answer9" value="0|a" id="91">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="92" class="green button"><input
+															type="radio" name="answer9" value="1|" id="92">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer10juanbiao"></a><br> <span
+													class="style1"> <strong>10.我喜欢不时地夸耀一下自己取得的好成就。</strong>
+														<br> <br> <label class="green button" for="101"><input
+															type="radio" name="answer10" value="0|a" id="101">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="102" class="green button"><input
+															type="radio" name="answer10" value="1|" id="102">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer11juanbiao"></a><br> <span
+													class="style1"> <strong>11.我很渴望参加探险活动。</strong> <br>
+														<br> <label class="green button" for="111"><input
+															type="radio" name="answer11" value="0|e" id="111">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="112" class="green button"><input
+															type="radio" name="answer11" value="1|" id="112">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer12juanbiao"></a><br> <span
+													class="style1"> <strong>12.当我一个独处时，会感到更愉快。</strong>
+														<br> <br> <label class="green button" for="121"><input
+															type="radio" name="answer12" value="0|" id="121">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="122" class="green button"><input
+															type="radio" name="answer12" value="1|s" id="122">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer13juanbiao"></a><br> <span
+													class="style1"> <strong>13.我喜欢在做事情前，对此事情做出细致的安排。</strong>
+														<br> <br> <label class="green button" for="131"><input
+															type="radio" name="answer13" value="0|r" id="131">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="132" class="green button"><input
+															type="radio" name="answer13" value="1|" id="132">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer14juanbiao"></a><br> <span
+													class="style1"> <strong>14.我讨厌修理自行车、电器一类的工作。</strong>
+														<br> <br> <label class="green button" for="141"><input
+															type="radio" name="answer14" value="0|" id="141">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="142" class="green button"><input
+															type="radio" name="answer14" value="1|r" id="142">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer15juanbiao"></a><br> <span
+													class="style1"> <strong>15.我喜欢参加各种各样的聚会。</strong> <br>
+														<br> <label class="green button" for="151"><input
+															type="radio" name="answer15" value="0|" id="151">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="152" class="green button"><input
+															type="radio" name="answer15" value="1|s" id="152">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer16juanbiao"></a><br> <span
+													class="style1"> <strong>16.对于将来的职业，我愿意从事虽然工资少、但是比较稳定的职业。</strong>
+														<br> <br> <label class="green button" for="161"><input
+															type="radio" name="answer16" value="0|" id="161">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="162" class="green button"><input
+															type="radio" name="answer16" value="1|e" id="162">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer17juanbiao"></a><br> <span
+													class="style1"> <strong>17.我常陶醉于音乐之中。</strong> <br>
+														<br> <label class="green button" for="171"><input
+															type="radio" name="answer17" value="0|a" id="171">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="172" class="green button"><input
+															type="radio" name="answer17" value="1|" id="172">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer18juanbiao"></a><br> <span
+													class="style1"> <strong>18.我办事很少思前想后。</strong> <br>
+														<br> <label class="green button" for="181"><input
+															type="radio" name="answer18" value="0|" id="181">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="182" class="green button"><input
+															type="radio" name="answer18" value="1|c" id="182">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer19juanbiao"></a><br> <span
+													class="style1"> <strong>19.我在处理学校事务时，经常请示老师。</strong>
+														<br> <br> <label class="green button" for="191"><input
+															type="radio" name="answer19" value="0|c" id="191">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="192" class="green button"><input
+															type="radio" name="answer19" value="1|" id="192">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer20juanbiao"></a><br> <span
+													class="style1"> <strong>20.比较普通的游戏，我更喜欢需要动脑子的智力游戏。</strong>
+														<br> <br> <label class="green button" for="201"><input
+															type="radio" name="answer20" value="0|i" id="201">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="202" class="green button"><input
+															type="radio" name="answer20" value="1|" id="202">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer21juanbiao"></a><br> <span
+													class="style1"> <strong>21.我很难持续集中注意力在2小时以上。</strong>
+														<br> <br> <label class="green button" for="211"><input
+															type="radio" name="answer21" value="0|" id="211">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="212" class="green button"><input
+															type="radio" name="answer21" value="1|i" id="212">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer22juanbiao"></a><br> <span
+													class="style1"> <strong>22.我喜欢亲自动手制作一些小玩意儿，从中得到乐趣。</strong>
+														<br> <br> <label class="green button" for="221"><input
+															type="radio" name="answer22" value="0|r" id="221">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="222" class="green button"><input
+															type="radio" name="answer22" value="1|" id="222">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer23juanbiao"></a><br> <span
+													class="style1"> <strong>23.我的动手能力很差。</strong> <br>
+														<br> <label class="green button" for="231"><input
+															type="radio" name="answer23" value="0|" id="231">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="232" class="green button"><input
+															type="radio" name="answer23" value="1|r" id="232">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer24juanbiao"></a><br> <span
+													class="style1"> <strong>24.和不熟悉的人交谈对我来说毫不困难。</strong>
+														<br> <br> <label class="green button" for="241"><input
+															type="radio" name="answer24" value="0|e" id="241">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="242" class="green button"><input
+															type="radio" name="answer24" value="1|" id="242">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer25juanbiao"></a><br> <span
+													class="style1"> <strong>25.和别人谈判时，我总是很容易放弃自己的观点。</strong>
+														<br> <br> <label class="green button" for="251"><input
+															type="radio" name="answer25" value="0|" id="251">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="252" class="green button"><input
+															type="radio" name="answer25" value="1|e" id="252">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer26juanbiao"></a><br> <span
+													class="style1"> <strong>26.我很容易结识同性别的朋友。</strong> <br>
+														<br> <label class="green button" for="261"><input
+															type="radio" name="answer26" value="0|s" id="261">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="262" class="green button"><input
+															type="radio" name="answer26" value="1|" id="262">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer27juanbiao"></a><br> <span
+													class="style1"> <strong>27.我做人做事，既不悲观，也不偏激，基本属于不偏不倚的温和型。</strong>
+														<br> <br> <label class="green button" for="271"><input
+															type="radio" name="answer27" value="0|" id="271">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="272" class="green button"><input
+															type="radio" name="answer27" value="1|s" id="272">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer28juanbiao"></a><br> <span
+													class="style1"> <strong>28.当我开始做一件事情后，即使碰到再多的困难，我也要执著地干下去。</strong>
+														<br> <br> <label class="green button" for="281"><input
+															type="radio" name="answer28" value="0|e" id="281">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="282" class="green button"><input
+															type="radio" name="answer28" value="1|" id="282">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer29juanbiao"></a><br> <span
+													class="style1"> <strong>29.我是一个沉静而不易动感情的人。</strong>
+														<br> <br> <label class="green button" for="291"><input
+															type="radio" name="answer29" value="0|c" id="291">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="292" class="green button"><input
+															type="radio" name="answer29" value="1|" id="292">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer30juanbiao"></a><br> <span
+													class="style1"> <strong>30.做事情时，我喜欢避免干扰。</strong> <br>
+														<br> <label class="green button" for="301"><input
+															type="radio" name="answer30" value="0|i" id="301">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="302" class="green button"><input
+															type="radio" name="answer30" value="1|" id="302">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer31juanbiao"></a><br> <span
+													class="style1"> <strong>31.我的理想是当一名科学家。</strong> <br>
+														<br> <label class="green button" for="311"><input
+															type="radio" name="answer31" value="0|i" id="311">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="312" class="green button"><input
+															type="radio" name="answer31" value="1|" id="312">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer32juanbiao"></a><br> <span
+													class="style1"> <strong>32.与言情小说相比，我更喜欢推理小说。</strong>
+														<br> <br> <label class="green button" for="321"><input
+															type="radio" name="answer32" value="0|" id="321">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="322" class="green button"><input
+															type="radio" name="answer32" value="1|a" id="322">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer33juanbiao"></a><br> <span
+													class="style1"> <strong>33.有些人太霸道，有时明明知道他们是对的，也要和他们对着干。</strong>
+														<br> <br> <label class="green button" for="331"><input
+															type="radio" name="answer33" value="0|a" id="331">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="332" class="green button"><input
+															type="radio" name="answer33" value="1|" id="332">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer34juanbiao"></a><br> <span
+													class="style1"> <strong>34.我爱幻想。</strong> <br>
+														<br> <label class="green button" for="341"><input
+															type="radio" name="answer34" value="0|a" id="341">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="342" class="green button"><input
+															type="radio" name="answer34" value="1|" id="342">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer35juanbiao"></a><br> <span
+													class="style1"> <strong>35.我总是主动地向别人提出自己的建议。</strong>
+														<br> <br> <label class="green button" for="351"><input
+															type="radio" name="answer35" value="0|e" id="351">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="352" class="green button"><input
+															type="radio" name="answer35" value="1|" id="352">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer36juanbiao"></a><br> <span
+													class="style1"> <strong>36.我喜欢使用钳子、改锥、螺丝刀、万用表一类的工具。</strong>
+														<br> <br> <label class="green button" for="361"><input
+															type="radio" name="answer36" value="0|r" id="361">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="362" class="green button"><input
+															type="radio" name="answer36" value="1|" id="362">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer37juanbiao"></a><br> <span
+													class="style1"> <strong>37.我乐于助人。</strong> <br>
+														<br> <label class="green button" for="371"><input
+															type="radio" name="answer37" value="0|s" id="371">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="372" class="green button"><input
+															type="radio" name="answer37" value="1|" id="372">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer38juanbiao"></a><br> <span
+													class="style1"> <strong>38.我比赛或玩游戏，爱与别人打赌。</strong>
+														<br> <br> <label class="green button" for="381"><input
+															type="radio" name="answer38" value="0|e" id="381">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="382" class="green button"><input
+															type="radio" name="answer38" value="1|" id="382">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer39juanbiao"></a><br> <span
+													class="style1"> <strong>39.我乐于按父母和老师的安排去做事。</strong>
+														<br> <br> <label class="green button" for="391"><input
+															type="radio" name="answer39" value="0|c" id="391">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="392" class="green button"><input
+															type="radio" name="answer39" value="1|" id="392">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer40juanbiao"></a><br> <span
+													class="style1"> <strong>40.如果将来参加工作，我希望能经常换不同的工作来做。</strong>
+														<br> <br> <label class="green button" for="401"><input
+															type="radio" name="answer40" value="0|" id="401">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="402" class="green button"><input
+															type="radio" name="answer40" value="1|c" id="402">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer41juanbiao"></a><br> <span
+													class="style1"> <strong>41.与朋友约好了见面，我总留有充裕的时间以免迟到。</strong>
+														<br> <br> <label class="green button" for="411"><input
+															type="radio" name="answer41" value="0|c" id="411">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="412" class="green button"><input
+															type="radio" name="answer41" value="1|" id="412">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer42juanbiao"></a><br> <span
+													class="style1"> <strong>42.我喜欢阅读自然科学方面的书籍和杂志。</strong>
+														<br> <br> <label class="green button" for="421"><input
+															type="radio" name="answer42" value="0|i" id="421">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="422" class="green button"><input
+															type="radio" name="answer42" value="1|" id="422">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer43juanbiao"></a><br> <span
+													class="style1"> <strong>43.如果掌握一门精湛的手艺并能以此赚到足够多的钱，我会感到满足。</strong>
+														<br> <br> <label class="green button" for="431"><input
+															type="radio" name="answer43" value="0|r" id="431">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="432" class="green button"><input
+															type="radio" name="answer43" value="1|" id="432">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer44juanbiao"></a><br> <span
+													class="style1"> <strong>44.我对汽车司机、汽车修理工职业比较感兴趣。</strong>
+														<br> <br> <label class="green button" for="441"><input
+															type="radio" name="answer44" value="0|" id="441">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="442" class="green button"><input
+															type="radio" name="answer44" value="1|r" id="442">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer45juanbiao"></a><br> <span
+													class="style1"> <strong>45.听别人谈“家中被盗”一类的事，很难引起我的同情。</strong>
+														<br> <br> <label class="green button" for="451"><input
+															type="radio" name="answer45" value="0|" id="451">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="452" class="green button"><input
+															type="radio" name="answer45" value="1|s" id="452">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer46juanbiao"></a><br> <span
+													class="style1"> <strong>46.如果待遇相同，我宁愿当商品推销员，而不愿当图书管理员。</strong>
+														<br> <br> <label class="green button" for="461"><input
+															type="radio" name="answer46" value="0|e" id="461">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="462" class="green button"><input
+															type="radio" name="answer46" value="1|" id="462">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer47juanbiao"></a><br> <span
+													class="style1"> <strong>47.我讨厌跟各类机械打交道。</strong> <br>
+														<br> <label class="green button" for="471"><input
+															type="radio" name="answer47" value="0|" id="471">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="472" class="green button"><input
+															type="radio" name="answer47" value="1|r" id="472">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer48juanbiao"></a><br> <span
+													class="style1"> <strong>48.我小时候经常把玩具拆开，把里面看个究竟。</strong>
+														<br> <br> <label class="green button" for="481"><input
+															type="radio" name="answer48" value="0|" id="481">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="482" class="green button"><input
+															type="radio" name="answer48" value="1|r" id="482">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer49juanbiao"></a><br> <span
+													class="style1"> <strong>49.当接受新任务后，我喜欢以自己的独特方法去完成它。</strong>
+														<br> <br> <label class="green button" for="491"><input
+															type="radio" name="answer49" value="0|a" id="491">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="492" class="green button"><input
+															type="radio" name="answer49" value="1|" id="492">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer50juanbiao"></a><br> <span
+													class="style1"> <strong>50.我有文艺方面的天赋。</strong> <br>
+														<br> <label class="green button" for="501"><input
+															type="radio" name="answer50" value="0|a" id="501">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="502" class="green button"><input
+															type="radio" name="answer50" value="1|" id="502">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer51juanbiao"></a><br> <span
+													class="style1"> <strong>51.我喜欢把一切安排得整整齐齐、井井有条。</strong>
+														<br> <br> <label class="green button" for="511"><input
+															type="radio" name="answer51" value="0|c" id="511">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="512" class="green button"><input
+															type="radio" name="answer51" value="1|" id="512">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer52juanbiao"></a><br> <span
+													class="style1"> <strong>52.我喜欢作一名教师。</strong> <br>
+														<br> <label class="green button" for="521"><input
+															type="radio" name="answer52" value="0|s" id="521">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="522" class="green button"><input
+															type="radio" name="answer52" value="1|" id="522">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer53juanbiao"></a><br> <span
+													class="style1"> <strong>53.和一群人在一起的时候，我总想不出恰当的话来说。</strong>
+														<br> <br> <label class="green button" for="531"><input
+															type="radio" name="answer53" value="0|" id="531">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="532" class="green button"><input
+															type="radio" name="answer53" value="1|s" id="532">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer54juanbiao"></a><br> <span
+													class="style1"> <strong>54.看情感影片时，我常禁不住眼圈红润。</strong>
+														<br> <br> <label class="green button" for="541"><input
+															type="radio" name="answer54" value="0|a" id="541">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="542" class="green button"><input
+															type="radio" name="answer54" value="1|" id="542">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer55juanbiao"></a><br> <span
+													class="style1"> <strong>55.我讨厌学数学。</strong> <br>
+														<br> <label class="green button" for="551"><input
+															type="radio" name="answer55" value="0|" id="551">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="552" class="green button"><input
+															type="radio" name="answer55" value="1|i" id="552">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer56juanbiao"></a><br> <span
+													class="style1"> <strong>56.假如将我单独一个人留着实验室做实验，我会感到非常无聊。</strong>
+														<br> <br> <label class="green button" for="561"><input
+															type="radio" name="answer56" value="0|" id="561">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="562" class="green button"><input
+															type="radio" name="answer56" value="1|i" id="562">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer57juanbiao"></a><br> <span
+													class="style1"> <strong>57.对于急躁、爱发脾气的人，我仍能以礼相待。</strong>
+														<br> <br> <label class="green button" for="571"><input
+															type="radio" name="answer57" value="0|c" id="571">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="572" class="green button"><input
+															type="radio" name="answer57" value="1|" id="572">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer58juanbiao"></a><br> <span
+													class="style1"> <strong>58.遇到难解答的题目时，我常常中途放弃，改做下一题。</strong>
+														<br> <br> <label class="green button" for="581"><input
+															type="radio" name="answer58" value="0|" id="581">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="582" class="green button"><input
+															type="radio" name="answer58" value="1|i" id="582">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer59juanbiao"></a><br> <span
+													class="style1"> <strong>59.大家公认我是一名勤劳踏实的、愿为大家服务的人。</strong>
+														<br> <br> <label class="green button" for="591"><input
+															type="radio" name="answer59" value="0|s" id="591">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="592" class="green button"><input
+															type="radio" name="answer59" value="1|" id="592">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+											<tr>
+												<td><a name="answer60juanbiao"></a><br> <span
+													class="style1"> <strong>60.我喜欢协助老师做班级管理类的工作。</strong>
+														<br> <br> <label class="green button" for="601"><input
+															type="radio" name="answer60" value="0|e" id="601">A.是</label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<label for="602" class="green button"><input
+															type="radio" name="answer60" value="1|" id="602">B.否</label>
+														<br> <br>
+												</span></td>
+											</tr>
+
+
+										</tbody>
+									</table>
+								</span>
+								<p>&nbsp;</p>
+								<p align="center">
+									<input type="Button" class="blue button" 
+										value="  提　　交　" onclick='showResult()'/>
+								</p>
+							</form>
+							<p>&nbsp;</p>
+							<p>&nbsp;</p>
+						</div>
+					</div> <br> <br> <br> <br>
+
+
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+</body>
+</body>
+
+</html>

@@ -1,0 +1,865 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                       <script>
+/*-----------知分选大学页面的判断--------------------*/
+	function selectSchool(){
+		var originAreaLength = $("#originArea").val().length;
+		var schoolAttributeLength = $("#schoolAttribute").val().length;
+		var batchLength = $("#batch").val().length;
+		var categoryLength = $("#category").val().length;
+		var schoolAreaLength = $("#schoolArea").val().length;
+		var scoreLength = $("#score").val().length;
+		var score = $("#score").val();
+		
+		if(originAreaLength == 0){
+			$("#originArea").focus();
+			return false;
+		}else if(categoryLength == 0){
+			$("#category").focus();
+			return false;
+		}else if(score<150){
+		  alert("抱歉，您输入的高考分数已低于理论值，请重新输入(至少150分)");
+          return false;			
+		}
+		
+		else{
+			$('#selectUniversityForm').submit()
+		}
+	
+	}
+/*-----------------知分选专业---------------------------*/
+	function selectMajor(){
+		var originAreaLength = $("#originArea1").val().length;
+		var batchLength = $("#batch1").val().length;
+		var categoryLength = $("#category1").val().length;
+		var majorCategoryLength = $("#majorCategory").val().length;
+		var scoreLength = $("#score1").val().length;
+		if(originAreaLength == 0){
+			$("#originArea1").focus();
+			return false;
+		}
+		else if(majorCategoryLength == 0){
+			$("#majorCategory").focus();
+			return false;
+		}
+		else if(batchLength == 0){
+			$("#batch1").focus();
+			return false;
+		}
+		else if(categoryLength == 0){
+			$("#category1").focus();
+			return false;
+		}
+		else if(scoreLength == 0){
+			$("#score1").focus();
+			return false;
+		}else{
+			$('#selectMajorForm').submit()
+		}
+	}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                       <script>
+	function test1(class1, class2) {
+		$('.' + class1).removeClass(class1).addClass(class2);
+	}
+	function test2(class1, class2) {
+		$('.' + class2).removeClass(class2).addClass(class1);
+	}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                       <script>
+
+var province;
+/* $(document).ready(function(){
+	$('.city-index-detail').click(function(){
+		province = "[ " + $(this).text() + " ]";
+	//province = $(this).text();
+		$(".city a").text(province);
+		var action = "http://www.gkzy100.com/user_front/saveCity.html";
+		$.ajax({
+			type: "POST",
+			url: action,
+			cache: false,
+	        async: true,
+			data: {"city":province},
+			error: function (e) {console.log(e); },
+			success: function (msg){
+				location.reload(); 
+			}
+		});
+	})
+	
+}) */
+$(document).ready(function(){
+	
+	$('.b_K dl dd a').click(function(){
+    	provinceHeader = "[ " + $(this).text() + " ]";
+	//	province =  $(this).text();
+		$('.city a').text(provinceHeader);
+		var action = "http://www.gkzy100.com/user_front/saveCity.html";
+		$.ajax({
+			type: "POST",
+			url: action,
+			cache: false,
+	        async: true,
+			data: {"city":provinceHeader},
+			error: function (e) {console.log(e); },
+			success: function (msg){
+			location.reload(); 
+			}
+		});
+	})
+})
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                       <script>
+$(document).ready(function(){
+    var doc=document,inputs=doc.getElementsByTagName('input'),supportPlaceholder='placeholder'in doc.createElement('input'),placeholder=function(input){var text=input.getAttribute('placeholder'),defaultValue=input.defaultValue;
+    if(defaultValue==''){
+        input.value=text}
+        input.onfocus=function(){
+            if(input.value===text){this.value=''}};
+            input.onblur=function(){if(input.value===''){this.value=text}}};
+            if(!supportPlaceholder){
+                for(var i=0,len=inputs.length;i<len;i++){var input=inputs[i],text=input.getAttribute('placeholder');
+                if(input.type==='text'&&text)
+                {placeholder(input)}}}
+  });
+  function expertLogin(){
+	  var URL = window.location.href;
+	  window.open("/expert/login.html");
+  }
+  function userLogin(){
+	  var URL = window.location.href;
+	  //window.location.href = "/user/login.html?urlValue="+url+"&1487743253553";
+	  window.open("/user/login.html?urlValue="+URL+"");
+  }
+  function userRegister(){
+	  var URL = window.location.href;
+	  //window.location.href = "/user/register.html?urlValue="+url+"&1487743253553"
+	  window.open("/user/register.html?urlValue="+URL+"");
+  }
+</script>
+
+<script>
+$(document).ready(function(){
+	
+	$('body').on('click','.confirm-modal button',function(){
+		if($(this).is(('.confirmmodal-btn2'))&&$('.confirm-modal .alert-body').text()=='想要测试？请先登录 ^_^')
+			{window.open('/user/login.html')}
+		else
+			{}
+	})
+	$('.list03 a:contains("素质测评")').click(function(){
+		if($('.a-status').length==0)
+			{
+			confirmmodal2("想要测试？请先登录 ^_^","关闭","登录");
+			return false;
+			}
+	
+	})
+}
+);
+</script>
+
+
+
+
+
+
+
+
+                       <script>
+$(document).ready(function(){
+	
+	$("a[name='index_img']").click(function(){
+		var root_url = window.document.location.href;
+		var uri = 'http://www.gkzy100.com';
+		if(root_url.indexOf("Z1")>10){
+			uri = root_url.substr(0,root_url.indexOf("Z1")+2);
+		}
+		//alert(uri);
+		window.location.href = uri;
+	});
+
+	//$('body').html().find("a").attr('href','test122221');
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                       <script>
+
+var test="[ 北京 ]";
+var province=test.substring(2,test.length-2);
+
+var batch = 2;
+var wl = "L";
+var year = "2015";
+
+
+  	$(document).ready(function(){
+    	$("#a1 ul li a").click(function(){
+    		$(this).addClass("current1").parent().siblings().find("a").removeClass("current1");
+    		province = $(this).text();
+        });
+    	$("#a2 ul li a").click(function(){
+    		$(this).addClass("current1").parent().siblings().find("a").removeClass("current1");
+    		if($(this).text() == "理科"){
+    			wl = "L";
+    		}else if($(this).text() == "文科"){
+    			wl = "W";
+    		}
+        });
+    	$("#a3 ul li a").click(function(){
+    		$(this).addClass("current1").parent().siblings().find("a").removeClass("current1");
+    		if($(this).text() == "本科一批"){
+				batch = 2;
+			}else if($(this).text() == "本科二批"){
+				batch = 3;
+			}else if($(this).text() == "本科三批"){
+				batch = 4;
+			}else if($(this).text() == "高职高专"){
+				batch = 6;
+			}
+    		
+        });
+    	$("#a4 ul li a").click(function(){
+    		$(this).addClass("current1").parent().siblings().find("a").removeClass("current1");
+    		year = $(this).text();
+        });
+    });
+  
+    function your_query(t){
+    	
+   
+    	//t 是你的查询条件
+    	t={schoolname:'',province:'',wl:'',batch:'',year:''};
+    	// your_query 需要你选取页面元素构造这个txt查询条件
+    	t.schoolname = $("#schoolname").val();
+    	t.province = province;
+    	t.wl = wl;
+    	t.batch = batch;
+    	t.year = year;
+    	return t;
+    }
+    function getele(){
+    	//需要替换的dom元素
+    	return "#universityScore";
+    }
+    function getaction(){
+    	//ajax 请求的页面 
+    	// js会将下面这个页面返回的字符串原封不动替换到getele这个元素里
+    	return "http://www.gkzy100.com/score/showCollege.html"
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                       <script>
+		function prev(prev_id, curr_id) {
+			$('#' + prev_id).show();
+			$('#' + curr_id).hide();
+		}
+		function next(curr_id, next_id) {
+
+			$('#' + curr_id).hide();
+			$('#' + next_id).show();
+		}
+	</script>
+
+                       <script> 
+
+
+document.body.onselectstart=document.body.oncontextmenu=function(){ return false;} 
+</script>

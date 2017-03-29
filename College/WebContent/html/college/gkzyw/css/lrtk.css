@@ -1,0 +1,33 @@
+/* css common */
+.clearfix:after {content: "."; display: block; height:0; clear:both; visibility: hidden;}
+.clearfix { *zoom:1; }
+
+/*#box{ position:relative; width:368px; height:221px; border:1px solid #f2f2f2; margin:100px auto;}*/
+#box .prev{  width:40px; height:60px; background:url(../images/icon-focusimg-btn-png24-20131225.png) -44px -63px no-repeat; z-index:1000; margin-top:50px; float:left; opacity:0.6; filter:alpha(opacity=0); cursor:pointer; position:relative;}
+#box .next{  width:40px; height:60px; background:url(../images/icon-focusimg-btn-png24-20131225.png) -74px -63px no-repeat; z-index:1000; margin-top:50px; float:right; opacity:0.6; filter:alpha(opacity=0);cursor:pointer; position:relative;}
+.bigUl li{ position:absolute;}
+.numberUl{ padding-top:130px; position:relative; }
+.numberUl li{width:24px; height:13px;  float:left; opacity:0.7; margin-left:1px;}
+.numberUl li a{ display:block ;width:24px; height:13px; color:#fff; font-size:12px; text-align:center; line-height:13px;}
+#box .textUl li a{ font-weight:bold;}
+
+
+/*
+.www51buycom { width: 710px;  margin:25px auto; position: relative; overflow:hidden; margin-bottom: 15px; }
+
+
+.www51buycom .num { overflow:hidden; height: 25px; position: absolute; bottom:12px; left: 15px; zoom:1; z-index:3 }
+.www51buycom .num li { width: 25px; height: 25px; line-height: 25px; text-align: center; font-weight: 400; font-family: "ÃŽÂ¢ÃˆÃ­Ã‘Ã…ÂºÃš", Arial; color: #FFFFFF; background: #444444; margin-right: 10px; border-radius:50%; cursor:pointer; float: left; }
+.www51buycom .num li.on { background: #FF7700; }
+
+
+.www51buycom .prev3,
+.www51buycom .next3 { display: none; width: 40px; height: 100px; background: url(../images/btn.png) no-repeat; position: absolute; top: 30px;}
+.www51buycom .prev3 { left: 0; }
+.www51buycom .next3 { right: 0; background-position: right; }
+
+
+.pic-two{display:block;width:630px; margin:0 auto;}
+.pic-two .pic-two-img{margin:0 7px; }
+.pic-two-words{width:300px; height:30px; line-height:30px; text-align:center;background-color:#f8f8f8; color:#3f3f3f;}
+*/

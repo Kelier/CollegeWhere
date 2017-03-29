@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<title>批次线管理</title>
+<link rel="stylesheet" type="text/css" href="../css/common.css">
+<!-- <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+
+<link rel="stylesheet" type="text/css" href="../css/slide.css">
+<link rel="stylesheet" type="text/css" href="../css/flat-ui.min.css">
+<link rel="stylesheet" type="text/css"
+	href="../css/jquery.nouislider.css">
+<script src="../js/jquery.js"></script>
+<script src="../js/bootstrap.min.js"></script> -->
+<script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+	<div role="tabpanel" class="tab-pane" id="scho">
+
+		<div class="check-div form-inline">
+			<div class="col-xs-3"></div>
+			<div class="col-lg-4 col-xs-5"
+				style="width: 55%; float: right; right: 100px">
+			<input type="text" class=" form-control input-sm "
+					id="query_province" placeholder="输入省份">
+			<input type="text" class=" form-control input-sm "
+					id="query_year" placeholder="输入年份">
+				<button class="btn btn-white btn-xs " onclick="queryBath();">查
+					询</button>
+			</div>
+		
+			<br>
+		</div>
+
+		<div class="data-div" id="app">
+			<div class="row tableHeader">
+				<div class="col-xs-2" v-for="title in titles"
+					v-if="title.show==true">{{title.name}}</div>
+			</div>
+			<div class="tablebody">
+				<div class="row" v-for="tr in tableTds">
+					<div class="col-xs-2" hidden="true">{{tr.id}}</div>
+					<div class="col-xs-2">{{tr.province}}</div>
+					<div class="col-xs-2">{{tr.year}}</div>
+					<div class="col-xs-2">{{tr.type}}</div>
+					<div class="col-xs-2">{{tr.bath}}</div>
+					<div class="col-xs-2">{{tr.score}}</div>
+
+
+					<div class="col-xs-2">
+
+
+						<button class="btn btn-success btn-xs" data-toggle="modal"
+							:data-id="tr.id" v-on:click="tdEdit($event)">修改</button>
+					</div>
+				</div>
+
+
+			</div>
+
+			<!--弹出修改大学窗口-->
+			<div class="modal fade" id="reviseScore" role="dialog"
+				aria-labelledby="gridSystemModalLabel">
+				<div class="modal-dialog" role="document" style="top: 25%">
+					<div class="modal-content" style="left: 25%; width: 400px">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">×</span>
+							</button>
+							<h4 class="modal-title" id="gridSystemModalLabel">修改地区批次线</h4>
+						</div>
+						<div class="modal-body">
+							<div class="container-fluid">
+								<form class="form-horizontal">
+									<div class="form-group ">
+										<label for="sName" class="col-xs-3 control-label">大学分数：</label>
+										<div class="col-xs-8 ">
+											<input type="text" class="form-control input-sm duiqi"
+												id="sName" placeholder="" v-model="editData_score">
+										</div>
+									</div>
+
+								</form>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-xs btn-white"
+								data-dismiss="modal">取 消</button>
+							<button type="button" class="btn btn-xs btn-green"
+								v-on:click="trSave">保 存</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+
+
+
+
+		</div>
+
+
+
+
+
+	</div>
+
+	<script type="text/javascript">
+	
+	var tableTitleData = [ {
+		name : "编号",
+		key : "id",
+		show : false
+	}, {
+		name : "省份",
+		key : "province",
+		show : true
+	}, {
+		name : "年份",
+		key : "year",
+		show : true
+	}, {
+		name : "类型",
+		key : "type",
+		show : true
+	}, {
+		name : "批次",
+		key : "bath",
+		show : true
+	},  {
+		name : "分数",
+		key : "score",
+		show : true
+	}];
+	var tableTd;
+	var tableApp = new Vue(
+			{
+				el : "#app",
+				data : {
+					titles : tableTitleData,//表头
+					tableTds : tableTd,//表内容
+					id : null,//选中要操作的ruleId
+					editData_score : null,//要编辑的批次线数据
+				},
+				methods : {
+					tdEdit : function(ev) {
+						$('#reviseScore').modal('show');
+						var srcEl = ev.target, //获取A元素
+						id = srcEl.dataset.id;//A元素上的data-id的值
+
+						//这里要给this.editData赋值//真实情况是发id给后台，后台给这个id的数据给你
+						//这里就暂时在本地找数据
+						for (var i = 0; i < this.tableTds.length; i++) {
+							if (this.tableTds[i].id == id) {
+
+								this.editData_score = this.tableTds[i].score;
+								this.id = id;//记录起来，后面要用到;
+								break;
+								//这样就双向绑定要编辑面板然后渲染出来了
+							}
+						}
+					},
+					trSave : function() {
+						//暂时在本地模拟，真实情况跟后台商量
+						for (var i = 0; i < this.tableTds.length; i++) {
+							if (this.tableTds[i].id == this.id) {
+								
+									this.tableTds[i].score = this.editData_score;
+
+									          $.ajax({
+									     		method:'post',
+									     		url:'../UpdateLineScore',
+									     		dataType:'json',
+									     		data:{
+									     			id:this.id,
+									     			score:this.editData_score
+									     		},
+									     		success:function(data){
+									     			/* alert(JSON.stringify(data)); */
+									     			$('#reviseScore').modal('hide');
+									     		},
+									     		error:function(data){
+									     			alert(JSON.stringify(data)+"error");
+									     		}
+									     		
+									     	});   
+									     	
+									    	//修改成功
+								
+								}
+									
+
+							
+							
+						}
+
+					}
+					
+				}
+			});
+	
+	
+	
+		 $(document).ready(function() {
+
+			$.ajax({
+				method : 'post',
+				url : '../FindAllLines',
+				dataType : 'json',
+				success : function(data) {
+					
+ 					 tableApp.tableTds = data;  
+				},
+				error : function(data) {
+					alert(JSON.stringify(data));
+				}
+			});
+
+		});
+ 
+ 	
+		 function queryBath(){
+				var province=$('#query_province').val();
+				var year=$('#query_year').val();
+				
+			 $.ajax({
+					type:'get',
+					url:'../QueryLine',
+					data:{
+						province:province,
+						year:year
+					},
+					dataType:'json',
+					success:function(data){
+						
+						tableApp.tableTds = data;
+					},
+					error:function(data){
+						alert(JSON.stringify(data)+"连接失败");
+					}
+					
+				}) ;
+		 }
+		
+
+	</script>
+</body>
+</html>

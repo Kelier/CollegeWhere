@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<title>院校管理</title>
+<link rel="stylesheet" type="text/css" href="../css/common.css">
+<!-- <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+
+<link rel="stylesheet" type="text/css" href="../css/slide.css">
+<link rel="stylesheet" type="text/css" href="../css/flat-ui.min.css">
+<link rel="stylesheet" type="text/css"
+	href="../css/jquery.nouislider.css">
+<script src="../js/jquery.js"></script>
+<script src="../js/bootstrap.min.js"></script> -->
+<script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+	<div role="tabpanel" class="tab-pane" id="scho">
+
+		<div class="check-div form-inline">
+			<div class="col-xs-3">
+				<button class="btn btn-yellow btn-xs" data-toggle="modal"
+					data-target="#addSchool">添加大学</button>
+			</div>
+			<div class="col-lg-4 col-xs-5" style="width: 65%">
+				<input type="text" class=" form-control input-sm " id="query_c_city"
+					placeholder="输入大学所在城市"> <input type="text"
+					class=" form-control input-sm " id="query_c_tag"
+					placeholder="输入大学标签"> <input type="text"
+					class=" form-control input-sm " id="query_c_score"
+					placeholder="输入分数">
+				<button class="btn btn-white btn-xs " onclick="queryCollege();">查
+					询</button>
+			</div>
+			<br>
+		</div>
+
+		<div class="data-div" id="app">
+			<div class="row tableHeader">
+				<div class="col-xs-2" style="width:200px;height:50px;" v-for="title in titles"
+					v-if="title.show==true">{{title.name}}</div>
+			</div>
+			<div class="tablebody">
+				<div class="row" v-for="tr in tableTds">
+					<div class="col-xs-2" style="width:200px;height:50px;">{{tr.c_id}}</div>
+					<div class="col-xs-2" style="width:200px;height:50px;">{{tr.college_name}}</div>
+					<div class="col-xs-2" style="width:200px;height:50px;">{{tr.college_icon}}</div>
+					<div class="col-xs-2" style="width:200px;height:50px;">{{tr.expect_line}}</div>
+					<div class="col-xs-2" style="width:200px;height:50px;overflow:hidden;">{{tr.tags}}</div>
+					<div class="col-xs-2" style="width:200px;height:50px;">
+
+						<button class="btn btn-success btn-xs" data-toggle="modal"
+							:data-id="tr.c_id" v-on:click="tdEdit($event)">修改</button>
+						<button class="btn btn-danger btn-xs" data-toggle="modal"
+							:data-id="tr.c_id" @click="delTd($event)">删除</button>
+					</div>
+				</div>
+
+
+			</div>
+
+			<!--弹出删除学校警告窗口-->
+			<div class="modal fade" id="deleteSchool" role="dialog"
+				aria-labelledby="gridSystemModalLabel">
+				<div class="modal-dialog" role="document" style="margin-top: 15%">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">×</span>
+							</button>
+							<h4 class="modal-title" id="gridSystemModalLabel">提示</h4>
+						</div>
+						<div class="modal-body">
+							<div class="container-fluid">确定要删除该大学信息？删除后不可恢复！</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-xs btn-white"
+								data-dismiss="modal">取 消</button>
+							<button type="button" class="btn btn-xs btn-danger"
+								id="btn_delete">删 除</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+
+
+			<!--弹出修改大学窗口-->
+			<div class="modal fade" id="reviseSchool" role="dialog"
+				aria-labelledby="gridSystemModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">×</span>
+							</button>
+							<h4 class="modal-title" id="gridSystemModalLabel">修改大学信息</h4>
+						</div>
+						<div class="modal-body">
+							<div class="container-fluid">
+								<form class="form-horizontal">
+									<div class="form-group ">
+										<label for="sName" class="col-xs-3 control-label">大学编号：</label>
+										<div class="col-xs-8 ">
+											<input type="text" class="form-control input-sm duiqi"
+												id="sName" placeholder="" v-model="editData_cid"  readonly="true">
+										</div>
+									</div>
+									<div class="form-group ">
+										<label for="sName" class="col-xs-3 control-label">大学名字：</label>
+										<div class="col-xs-8 ">
+											<input type="text" class="form-control input-sm duiqi"
+												id="sName" placeholder="" v-model="editData_name">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="sLink" class="col-xs-3 control-label">大学详细描述：</label>
+										<div class="col-xs-8 ">
+											<textarea class="form-control input-sm duiqi"
+												id="coll_describe" placeholder=""></textarea>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="sOrd" class="col-xs-3 control-label">大学图标：</label>
+										<div class="col-xs-8">
+											<input type="" class="form-control input-sm duiqi" id="sOrd"
+												placeholder="" v-model="editData_icon">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="sOrd" class="col-xs-3 control-label">大学类型：</label>
+										<div class="col-xs-8">
+											<input type="" class="form-control input-sm duiqi" id="sOrd"
+												placeholder="" v-model="editData_type">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="sOrd" class="col-xs-3 control-label">就业率：</label>
+										<div class="col-xs-8">
+											<input type="" class="form-control input-sm duiqi"
+												id="coll_rank" placeholder="">
+										</div>
+									</div>
+
+								</form>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-xs btn-white"
+								data-dismiss="modal">取 消</button>
+							<button type="button" class="btn btn-xs btn-green"
+								v-on:click="trSave">保 存</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+
+		</div>
+
+
+
+		<!--弹出添加学校窗口-->
+		<div class="modal fade" id="addSchool" role="dialog"
+			aria-labelledby="gridSystemModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+						<h4 class="modal-title" id="gridSystemModalLabel">添加大学</h4>
+					</div>
+					<div class="modal-body">
+						<div class="container-fluid">
+							<form class="form-horizontal">
+								<div class="form-group ">
+									<label for="sName" class="col-xs-3 control-label">大学编号：</label>
+									<div class="col-xs-8 ">
+										<input type="email" class="form-control input-sm duiqi"
+											id="coll_id" placeholder="">
+									</div>
+								</div>
+								<div class="form-group ">
+									<label for="sName" class="col-xs-3 control-label">大学名字：</label>
+									<div class="col-xs-8 ">
+										<input type="email" class="form-control input-sm duiqi"
+											id="coll_name" placeholder="">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="sLink" class="col-xs-3 control-label">大学图标：</label>
+									<div class="col-xs-8 ">
+										<input type="file" class="duiqi"
+											id="coll_link" placeholder="">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="sOrd" class="col-xs-3 control-label">预期分数线：</label>
+									<div class="col-xs-8">
+										<input type="text" class="form-control input-sm duiqi"
+											id="coll_line" placeholder="">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="sOrd" class="col-xs-3 control-label">批次：</label>
+									<div class="col-xs-8">
+										<select class="form-control input-sm duiqi"
+											id="coll_pici">
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="sOrd" class="col-xs-3 control-label">类型：</label>
+									<div class="col-xs-8">
+										<input type="text" class="form-control input-sm duiqi"
+											id="coll_type" placeholder="">
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-xs btn-white"
+							data-dismiss="modal">取 消</button>
+						<button type="button" class="btn btn-xs btn-green"
+							onclick="saveAdd();">保 存</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+
+
+
+
+
+	</div>
+
+	<script type="text/javascript">
+		var tableTitleData = [ {
+			name : "大学编号",
+			key : "c_id",
+			show : true
+		}, {
+			name : "大学名字",
+			key : "college_name",
+			show : true
+		}, {
+			name : "大学图标",
+			key : "college_icon",
+			show : true
+		}, {
+			name : "预期分数线",
+			key : "expect_line",
+			show : true
+		}, {
+			name : "大学类型",
+			key : "tags",
+			show : true
+		}, ];
+		var tableTd;
+		var tableApp = new Vue(
+				{
+					el : "#app",
+					data : {
+						titles : tableTitleData,//表头
+						tableTds : tableTd,//表内容
+						c_id : null,//选中要操作的ruleId
+						editData_cid : null,//要编辑的大学编号数据
+						editData_name : null,//要编辑的大学名字数据
+						editData_icon : null,//要编辑的大学图标数据
+						editData_type : null,//要编辑的大学类型数据
+					},
+					methods : {
+						tdEdit : function(ev) {
+							$('#reviseSchool').modal('show');
+							var srcEl = ev.target, //获取A元素
+							id = srcEl.dataset.id;//A元素上的data-id的值
+
+							//这里要给this.editData赋值//真实情况是发id给后台，后台给这个id的数据给你
+							//这里就暂时在本地找数据
+							for (var i = 0; i < this.tableTds.length; i++) {
+								if (this.tableTds[i].c_id == id) {
+
+									this.editData_cid = this.tableTds[i].c_id;
+									this.editData_name = this.tableTds[i].college_name;
+									this.editData_icon = this.tableTds[i].college_icon;
+									this.editData_type = this.tableTds[i].tags;
+
+									this.c_id = id;//记录起来，后面要用到;
+									break;
+									//这样就双向绑定要编辑面板然后渲染出来了
+								}
+							}
+						},
+						trSave : function() {
+							var description = $('#coll_describe').val();
+							var employee_rank = $('#coll_rank').val();
+							//暂时在本地模拟，真实情况跟后台商量
+							for (var i = 0; i < this.tableTds.length; i++) {
+								if (this.tableTds[i].c_id == this.c_id) {
+									
+									if (this.editData_cid != '') {
+										this.tableTds[i].c_id = this.editData_cid;
+										this.tableTds[i].college_name = this.editData_name;
+										this.tableTds[i].college_icon = this.editData_icon;
+										this.tableTds[i].tags = this.editData_type;
+
+										          $.ajax({
+										     		method:'post',
+										     		url:'../UpdateCollegeDetail',
+										     		dataType:'json',
+										     		data:{
+										     			cid:this.editData_cid,
+										     			college_name:this.editData_name,
+										     			college_icon:this.editData_icon,
+										     			tags:this.editData_type,
+										     			college_descrption:description,
+										     			job_rate:employee_rank
+										     		},
+										     		success:function(data){
+										     			/* alert(JSON.stringify(data)); */
+										     			$('#reviseSchool').modal('hide');
+										     		},
+										     		error:function(data){
+										     			alert(JSON.stringify(data)+"error");
+										     		}
+										     		
+										     	});   
+										     	
+										    	//修改成功
+									} else {
+										alert('大学编号不能为空');
+										break;
+									}
+									}
+										
+
+								
+								
+							}
+
+						},
+						delTd : function(ev) {
+							$('#deleteSchool').modal('show');
+							var srcEl = ev.target, //获取A元素
+							id = srcEl.dataset.id;//A元素上的data-id的值
+							/*   alert(id); */
+							$("#btn_delete")
+									.click(
+											function() {
+												for (var i = 0; i < tableApp.tableTds.length; i++) {
+
+													if (tableApp.tableTds[i].c_id == id) {
+
+														tableApp.tableTds
+																.splice(i, 1);
+														$
+																.ajax({
+																	method : 'post',
+																	url : '../DeleteCollege',
+																	dataType : 'json',
+																	data : {
+																		c_id : id
+																	},
+																	success : function(
+																			data) {
+																		//alert(data);
+																	},
+																	error : function(
+																			data) {
+																		alert(JSON
+																				.stringify(data));
+																	}
+																});
+														$('#deleteSchool')
+																.modal('hide');
+														break;
+														//删除成功
+													}
+												}
+											});
+
+						}
+					}
+				});
+		$(document).ready(function() {
+
+			$.ajax({
+				method : 'post',
+				url : '../QueryCollege',
+				dataType : 'json',
+				data : {
+					province : '',
+					tag : '',
+					score : 20
+				},
+				success : function(data) {
+					tableApp.tableTds = data;
+
+				},
+				error : function(data) {
+					alert(JSON.stringify(data));
+				}
+			});
+
+		});
+
+		function queryCollege() {
+
+			var city_find = $('#query_c_city').val();
+			var tag_find = $('#query_c_tag').val();
+			var score_find = $('#query_c_score').val();
+			if (score_find == "") {
+				score_find = '20';
+				parseInt(score_find, '10');
+			} else {
+				score_find = parseInt(score_find, '10');
+				if (score_find % 1 != 0 || score_find < 20)
+					score_find = 20;
+			}
+		
+			$.ajax({
+				method : 'post',
+				url : '../QueryCollege',
+				dataType : 'json',
+				data : {
+					province : city_find,
+					tag : tag_find,
+					score : score_find
+				},
+				success : function(data) {
+					//alert(JSON.stringify(data));
+					tableApp.tableTds = data;
+
+				},
+				error : function(data) {
+					alert(JSON.stringify(data));
+				}
+			});
+
+		}
+
+		function saveAdd() {
+			var coll_id = $('#coll_id').val();
+			
+			var coll_name = $('#coll_name').val();
+			//$('#coll_link').val()
+			var coll_link="undeny";
+	
+			if(document.getElementById('coll_link').value.length>0)
+			coll_link ="upload"+document.getElementById('coll_link').files[0].name ;
+
+			var coll_type = $('#coll_type').val();
+			var coll_line;
+			var coll_pici=$('#coll_pici').val();
+			
+			if($('#coll_id').val()==''){
+				alert('大学编号不能为空');
+			}else if($('#coll_id').val()!=''){
+			if($('#coll_line').val()!=''||$('#coll_pici').val()!=''){
+			coll_line = parseInt($('#coll_line').val(), '10');
+			coll_pici = parseInt($('#coll_pici').val(), '10');
+			if (coll_line % 1 != 0)
+				alert("请检测分数线的数据类型");
+			else if (coll_line < 20)
+				alert("分数线过低");
+			else if (coll_pici % 1 != 0)
+				alert("请检测批次线的数据类型");
+			}
+			if($('#coll_line').val()==''&&$('#coll_pici').val()==''){
+				coll_line = parseInt('500', '10');
+			coll_pici = parseInt('1', '10');
+			}
+	
+				if(coll_line.toString()!="NaN"&&coll_pici.toString()!="NaN") {
+					
+					
+					$.ajax({
+						method : 'post',
+						url : '../AddCollege',
+						dataType : 'json',
+						data : {
+							c_id : coll_id,
+							college_name : coll_name,
+							college_icon : coll_link,
+							expect_line : coll_line,
+							pici : coll_pici,
+							tags : coll_type,
+							probility : '85.6%'
+						},
+						success : function(data) {
+							//alert(JSON.stringify(data)); 
+							if(JSON.stringify(data)!="大学编号不能重复")
+								$('#addSchool').modal('hide');
+						},
+						error : function(data) {
+							alert(JSON.stringify(data));
+						}
+					});
+				
+			}
+			//}
+			}
+			
+			
+			
+			
+		}
+	</script>
+</body>
+</html>

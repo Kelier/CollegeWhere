@@ -1,0 +1,28 @@
+@charset "utf-8";
+html {color: #000;background: #fff;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;}
+        html * {outline: none;-webkit-text-size-adjust: none;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+        body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,menu,
+        nav,section {margin: 0;padding: 0;}
+        input,select,textarea {font-size: 100%;}
+        table {border-collapse: collapse;border-spacing: 0; }
+        fieldset,img {border: 0;}
+        abbr,acronym { border: 0;font-variant: normal;}
+        del {text-decoration: line-through;}
+        address,caption,cite,code,dfn,em,th,var {font-style: normal;font-weight: 500;}
+        ol,ul{list-style: none;  }
+        caption,th {text-align: left;}
+        h1,h2,h3,h4,h5,h6 {font-size: 100%;font-weight: 500;}
+        q:before,q:after {content: '';}
+        sub,sup {font-size: 75%;line-height: 0;position: relative;vertical-align: baseline;}
+        sup {top: -0.5em;}
+        sub {bottom: -0.25em;}
+        a:hover {text-decoration: none;}
+        ins,a {text-decoration: none;}
+        html{font-family:'Hiragino Sans GB','Microsoft YaHei';background: #f0f0f0;}
+        .cityselectbox .banner img{width: 100%; height: auto; vertical-align: top;}
+        .cityselectbox .cityselectword{padding: 0 4.2666666%;}
+        .cityselectbox h2{font-size: 0.4266666rem;  margin: 0.42666666rem 0; color: #ff6c00; border-left: 0.08rem solid #ff6c00; padding-left: 0.21333333rem;line-height: 0.42666666rem;}
+        .cityselectbox p{text-indent: 2em; font-size: 0.4266666rem; line-height: 0.64rem; color: #131313; margin-bottom:0.0666666rem ;}
+        .cityselectbox .module{margin: 0.42666666rem 0}
+        .cityselectbox .module img{width: 100%; height: auto; vertical-align: top;}
+        
